@@ -28,7 +28,7 @@ PuflibState RTC_DATA_ATTR PUFLIB_STATE = {.state = NONE, .iteration_progress = 0
 
 uint8_t *PUF_RESPONSE = 0;
 size_t PUF_RESPONSE_LEN = 0;
-enum PufState RTC_DATA_ATTR PUF_STATE = CLEAN;
+enum PufState RTC_DATA_ATTR PUF_STATE = RESPONSE_CLEAN;
 
 void puf_response_reset_calculate();
 
@@ -159,8 +159,13 @@ bool get_puf_response() {
     free(mask);
     free(masked_puf);
 
-    PUF_STATE = READY;
-    return puf_hw_percent > PUF_HW_THRESHOLD_PERCENT && puf_errors_percent < PUF_ERROR_THRESHOLD_PERCENT;
+    PUF_STATE = RESPONSE_READY;
+
+    bool puf_ok = puf_hw_percent > PUF_HW_THRESHOLD_PERCENT && puf_errors_percent < PUF_ERROR_THRESHOLD_PERCENT;
+    if(!puf_ok) {
+        clean_puf_response();
+    }
+    return puf_ok;
 }
 
 
@@ -196,7 +201,7 @@ void puf_response_reset_calculate() {
     correct_data(masked_puf, ecc_data, ecc_len, PUF_RESPONSE, PUF_RESPONSE_LEN);
 
     PUFLIB_STATE.state = NONE;
-    PUF_STATE = READY;
+    PUF_STATE = RESPONSE_READY;
 
     free(ecc_data);
     free(mask);
@@ -208,6 +213,6 @@ void clean_puf_response() {
     free(PUF_RESPONSE);
     PUF_RESPONSE_LEN = 0;
     PUF_RESPONSE = NULL;
-    PUF_STATE = CLEAN;
+    PUF_STATE = RESPONSE_CLEAN;
 }
 

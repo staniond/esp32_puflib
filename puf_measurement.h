@@ -11,7 +11,7 @@
 
 #define PUF_MEMORY_SIZE 0x1000 // max is 0x2000 - 8KB for RTC FAST SRAM
 #define RTC_FAST_MEMORY_ADDRESS (0x3FF80000)
-#define DATA_SRAM_MEMORY_ADDRESS (1)
+#define DATA_SRAM_MEMORY_ADDRESS (0x3FFB0000)
 
 enum STATE {NONE = 0, PROVISIONING, PUF_RESPONSE_RESET};
 
@@ -20,7 +20,7 @@ typedef struct {
     int iteration_progress;
 } PuflibState;
 
-enum PufState {CLEAN, READY};
+enum PufState {RESPONSE_CLEAN, RESPONSE_READY};
 
 extern uint8_t PUF_BUFFER[PUF_MEMORY_SIZE];
 extern PuflibState PUFLIB_STATE;

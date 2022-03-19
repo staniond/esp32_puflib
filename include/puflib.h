@@ -1,3 +1,9 @@
+//
+// Ondrej Stanicek
+// staniond@fit.cvut.cz
+// Czech Technical University - Faculty of Information Technology
+// 2022
+//
 #ifndef ESP32_PUF_PUFLIB_H
 #define ESP32_PUF_PUFLIB_H
 
@@ -5,21 +11,21 @@
 #include <stdbool.h>
 
 /**
- * Enum that indicates, if the PUF_RESPONSE and PUF_RESPONSE_LEN global variables are valid - READY state
- * or if they were cleaned or not initialized at all - CLEAN state.
+ * Enum that indicates, if the PUF_RESPONSE and PUF_RESPONSE_LEN global variables are valid - RESPONSE_READY state
+ * or if they were cleaned or not initialized at all - RESPONSE_CLEAN state.
  * The state is updated accordingly after calling puflib functions.
  */
-enum PufState {CLEAN, READY};
+enum PufState {RESPONSE_CLEAN, RESPONSE_READY};
 const extern enum PufState PUF_STATE;
 
 /**
  * Buffer to which the PUF response will be copied after calling the get_puf_response or get_puf_response_reset
- * functions. The content is valid only if PUF_STATE == READY.
+ * functions. The content is valid only if PUF_STATE == RESPONSE_READY.
  */
 extern uint8_t *PUF_RESPONSE;
 
 /**
- * Variable containing the length of the PUF_RESPONSE in bytes. Valid only if PUF_STATE == READY.
+ * Variable containing the length of the PUF_RESPONSE in bytes. Valid only if PUF_STATE == RESPONSE_READY.
  */
 extern size_t PUF_RESPONSE_LEN;
 
@@ -56,5 +62,12 @@ void clean_puf_response();
  * Provisions PUF for both RTC and deep sleep methods.
  */
 void provision_puf();
+
+/**
+ * This function needs to be called somewhere from the deep sleep wake up stub of the esp-idf
+ * (the esp_wake_deep_sleep function).
+ */
+void RTC_IRAM_ATTR puflib_wake_up_stub(void);
+
 
 #endif //ESP32_PUF_PUFLIB_H

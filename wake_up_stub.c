@@ -6,12 +6,13 @@
 //
 #include <esp_sleep.h>
 #include <string.h>
+#include <esp_rom_sys.h>
 
 #include "wake_up_stub.h"
 #include "puf_measurement.h"
 
 
-void RTC_IRAM_ATTR esp_wake_deep_sleep(void) {
+void RTC_IRAM_ATTR puflib_wake_up_stub(void) {
     esp_default_wake_deep_sleep();
     memcpy(PUF_BUFFER, (uint8_t*) DATA_SRAM_MEMORY_ADDRESS, PUF_MEMORY_SIZE);
 }
