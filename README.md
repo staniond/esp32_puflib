@@ -1,7 +1,7 @@
 # esp32_puflib
 Library which implements a SRAM based physical unclonable function on ESP32 microntroller family.
 
-### How to include a project:
+## How to include a project:
 The library is a ESP-IDF component ([ESP-IDF documentation](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-guides/build-system.html#example-project)).
 
 To include this into your project, you have 2 options:
@@ -10,7 +10,21 @@ To include this into your project, you have 2 options:
 
 add `set(EXTRA_COMPONENT_DIRS /path/to/the/parent/directory/of/this/component)` line to your project CMakeLists.txt file.
 
-### Minimal working example:
+#### Partition table: (IMPORTANT)
+the library saves the helper PUF data and data during provisioning to
+the ESP-IDF NVS library. The default NVS partition is too small to save
+all the needed data, so bigger partition is needed.
+
+You can use this example partition table:
+
+    # ESP-IDF Partition Table
+    # Name,   Type, SubType, Offset,  Size, Flags
+    nvs,      data, nvs,     0x9000,  0x50000,
+    phy_init, data, phy,           ,  0x1000,
+    factory,  app,  factory,       ,  1M,
+save it to a .csv file and add the path to the file in menuconfig (Partition table -> Custom partition CSV file)
+
+## Minimal working example:
     #include <stdio.h>
     #include <esp_sleep.h>
 
