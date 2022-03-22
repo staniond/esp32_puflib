@@ -67,7 +67,7 @@ void provision_puf();
  * This function needs to be called somewhere from the deep sleep wake up stub of the esp-idf
  * (the esp_wake_deep_sleep function).
  */
-void RTC_IRAM_ATTR puflib_wake_up_stub(void);
+void puflib_wake_up_stub(void);
 
 
 #endif //ESP32_PUF_PUFLIB_H

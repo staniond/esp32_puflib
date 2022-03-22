@@ -4,7 +4,6 @@
 // Czech Technical University - Faculty of Information Technology
 // 2022
 //
-#include <esp_sleep.h>
 #include <string.h>
 #include <esp_rom_sys.h>
 
@@ -13,6 +12,5 @@
 
 
 void RTC_IRAM_ATTR puflib_wake_up_stub(void) {
-    esp_default_wake_deep_sleep();
     memcpy(PUF_BUFFER, (uint8_t*) DATA_SRAM_MEMORY_ADDRESS, PUF_MEMORY_SIZE);
 }
