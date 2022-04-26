@@ -17,10 +17,10 @@
 #include "nvs.h"
 #include "ecc.h"
 
-#define PUF_RESPONSE_SLEEP_uS (10*1000) // TODO determine from temp tests
-#define PUFSLEEP_RESPONSE_SLEEP_uS (50000) // TODO determine from temp tests
-#define PUF_HW_THRESHOLD_PERCENT (49.5)
-#define PUF_ERROR_THRESHOLD_PERCENT (1.0)
+#define PUF_RESPONSE_SLEEP_uS (10*1000)
+#define PUFSLEEP_RESPONSE_SLEEP_uS (100000)
+#define PUF_HW_THRESHOLD_PERCENT (48.5)
+#define PUF_ERROR_THRESHOLD_PERCENT (0.15)
 
 uint8_t* RTC_FAST_MEMORY = (uint8_t*) RTC_FAST_MEMORY_ADDRESS;
 uint8_t __NOINIT_ATTR PUF_BUFFER[PUF_MEMORY_SIZE];
