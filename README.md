@@ -11,7 +11,7 @@ To include this into your project, you have 2 options:
 add `set(EXTRA_COMPONENT_DIRS /path/to/the/parent/directory/of/this/component)` line to your project CMakeLists.txt file.
 
 #### Partition table: (IMPORTANT)
-the library saves the helper PUF data and data during provisioning to
+the library saves the helper PUF data and data during enrollment to
 the ESP-IDF NVS library. The default NVS partition is too small to save
 all the needed data, so bigger partition is needed.
 
@@ -35,7 +35,7 @@ save it to a .csv file and add the path to the file in menuconfig (Partition tab
     {
         puflib_init(); // needs to be called first in app_main
         
-        provision_puf(); // provisioning needs to be done only once at the beginning
+        enroll_puf(); // enrollment needs to be done only once at the beginning
 
             // condition will be true, if a PUF response is ready (useful after a restart)
             if(PUF_STATE != RESPONSE_READY) {

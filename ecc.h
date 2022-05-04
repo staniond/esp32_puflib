@@ -35,7 +35,7 @@ void provision_puf_calculate();
  * for stable PUF response reconstruction.
  * Provisions PUF for both RTC and deep sleep methods.
  */
-void provision_puf();
+void enroll_puf();
 
 /**
  * Corrects the PUF response using the ECC data. The ECC used is 8x repetition code.

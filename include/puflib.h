@@ -57,11 +57,11 @@ _Noreturn void get_puf_response_reset();
 void clean_puf_response();
 
 /**
- * Provisions the PUF on this device - saves stable bit mask and ECC data to flash
+ * Enrolls the PUF on this device - saves stable bit mask and ECC data to flash
  * for stable PUF response reconstruction.
- * Provisions PUF for both RTC and deep sleep methods.
+ * Enrolls PUF for both RTC and deep sleep methods.
  */
-void provision_puf();
+void enroll_puf();
 
 /**
  * This function needs to be called somewhere from the deep sleep wake up stub of the esp-idf

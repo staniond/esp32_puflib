@@ -267,7 +267,7 @@ void provision_puf_calculate() {
     free(puf_freq_sleep);
 }
 
-void provision_puf() {
+void enroll_puf() {
     if(PUFLIB_STATE.state == PROVISIONING) {
         PUFLIB_STATE.state = NONE;
         PUFLIB_STATE.iteration_progress = 0;
